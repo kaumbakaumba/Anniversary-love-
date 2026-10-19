@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary! 💕</title>
+    <!-- Google Fonts for typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ffe6ea 0%, #ffc3a0 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating Hearts Background */
+        .heart {
+            position: fixed;
+            color: rgba(255, 105, 180, 0.6);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp 6s linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) scale(0.5) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.2) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Card Container */
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 30px 22px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(233, 30, 99, 0.15);
+            max-width: 450px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            border: 2px solid rgba(255, 182, 193, 0.6);
+        }
+
+        /* Image Styling */
+        .img-container {
+            width: 100%;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+            margin-bottom: 20px;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.6rem;
+            color: #d81b60;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+
+        /* Survey / Quiz Section */
+        .quiz-container {
+            text-align: left;
+            background: #fff0f3;
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px dashed #ffb6c1;
+            margin-bottom: 15px;
+        }
+
+        .question-block {
+            margin-bottom: 20px;
+        }
+
+        .question-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .question-title {
+            font-weight: 600;
+            color: #d81b60;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            text-align: left;
+            background: white;
+            border: 1.5px solid #ffccd5;
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            color: #444;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: #e91e63;
+            background-color: #fff8f9;
+        }
+
+        .option-btn.selected {
+            background-color: #e91e63;
+            color: white;
+            border-color: #e91e63;
+        }
+
+        /* Custom Text Inputs */
+        .text-input {
+            width: 100%;
+            padding: 12px;
+            border: 1.5px solid #ffccd5;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.88rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input:focus {
+            border-color: #e91e63;
+        }
+
+        /* Buttons */
+        .submit-btn {
+            background: linear-gradient(45deg, #ff4081, #e91e63);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            border-radius: 30px;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(233, 30, 99, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.4);
+            background: linear-gradient(45deg, #e91e63, #c2185b);
+        }
+
+        .whatsapp-btn {
+            display: block;
+            background: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 25px;
+            margin-top: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1ebc57;
+            transform: translateY(-2px);
+        }
+
+        .error-msg {
+            color: #e91e63;
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: none;
+        }
+
+        /* Hidden Paragraph Unlocked Area */
+        .hidden-message {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background: #fff0f3;
+            border-radius: 18px;
+            border: 1px dashed #ffb6c1;
+            padding: 22px 20px;
+            color: #4a4a4a;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .hidden-message.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .hidden-message p {
+            margin-bottom: 14px;
+        }
+
+        .hidden-message p:last-child {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+    <div class="heart" style="left: 10%; animation-delay: 0s;">❤️</div>
+    <div class="heart" style="left: 25%; animation-delay: 2s; font-size: 26px;">💖</div>
+    <div class="heart" style="left: 40%; animation-delay: 4s;">💕</div>
+    <div class="heart" style="left: 60%; animation-delay: 1s; font-size: 24px;">❤️</div>
+    <div class="heart" style="left: 75%; animation-delay: 3s;">💗</div>
+    <div class="heart" style="left: 90%; animation-delay: 5s; font-size: 28px;">💕</div>
+
+    <!-- Main Content Card -->
+    <div class="card">
+        <div class="img-container">
+            <img src="our-photo.jpg" alt="Our Picture">
+        </div>
+        
+        <h1>Happy Anniversary! 💕</h1>
+        <p class="subtitle" id="subtitleText">Answer these quick questions to unlock your anniversary surprise ✨</p>
+        
+        <!-- Survey Section -->
+        <div id="surveySection">
+            <div class="quiz-container">
+                <!-- Question 1 -->
+                <div class="question-block">
+                    <div class="question-title">1. How far can you go for our love? ❤️</div>
+                    <button type="button" class="option-btn" onclick="selectOption(this, 'To the moon and back 🌙✨')">A) To the moon and back 🌙✨</button>
+                    <button type="button" class="option-btn" onclick="selectOption(this, 'To the ends of the earth 🌍❤️')">B) To the ends of the earth 🌍❤️</button>
+                    <button type="button" class="option-btn" onclick="selectOption(this, 'Infinity and beyond 🚀♾️')">C) Infinity and beyond 🚀♾️</button>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="question-block">
+                    <div class="question-title">2. What should I work on most? 💕</div>
+                    <input type="text" id="q2Input" class="text-input" placeholder="Type your answer here..." />
+                </div>
+
+                <!-- Question 3 -->
+                <div class="question-block">
+                    <div class="question-title">3. One thing you hate about me? 😂</div>
+                    <input type="text" id="q3Input" class="text-input" placeholder="Be honest... 😂" />
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitSurvey()">Unlock Secret Letter ✨</button>
+            <p id="errorMsg" class="error-msg">Please answer all 3 questions first! 💕</p>
+        </div>
+        
+        <!-- Hidden Secret Letter -->
+        <div id="secretMessage" class="hidden-message">
+            <p><strong>Survey Completed! You are officially stuck with me forever. 💕💍</strong></p>
+            <hr style="border: 0; height: 1px; background: #ffb6c1; margin: 15px 0;">
+
+            <p>Happy Anniversary to my one and only🫶🏼💕. You've turned my life into a story of love, laughter, and unforgettable moments.</p>
+
+            <p>Thank you for being my biggest supporter, my truest friend, and my greatest love.💍😭🤍</p>
+
+            <p>I'm so grateful for every moment we've shared, and I can't wait to see what the future holds for us.🫀🫶🏼 We argue, we fight, we fix, we stay 😂❤️‍🩹, coz clearly your toxic ahh want to be here 🤍💕💍 You Are Where My Heart Wants to Be❤️‍🩹❤️</p>
+
+            <p>There are many beautiful things I could wish for in life, but when I think about the future, one of my favorite thoughts is simply having you in it. 🫶🏼💕💍 You have become the person I want to share my quiet moments with, the one I want to laugh with when life feels easy, and the one I hope will still be beside me when life becomes difficult. 💕🫀</p>
+
+            <p>Loving you has changed the way I see happiness, because I no longer think it has to be something extraordinary or far away. 💕 Sometimes, happiness is just hearing your voice after a long day, seeing your name appear on my screen, or knowing that somewhere in this big world, there is someone I care about as deeply as I care about you. 🫀❤️</p>
+
+            <p>You bring a kind of warmth into my life that I never knew I was missing, and even when everything around me feels uncertain, the feelings I have for you remain something my heart recognizes as real.</p>
+
+            <p>I don't need every day to be perfect, and I don't expect our journey to be without challenges, but if I can keep choosing you through all the changing seasons of life, then I know I will have something truly worth holding onto. 💕</p>
+
+            <p>Because out of all the places my heart could wander, out of all the dreams I could imagine, somehow it always comes back to your stupid ass😂❤️‍🩹, I don’t understand all but all I know is I love you 😭❤️💍</p>
+
+            <p style="font-style: italic; text-align: center; color: #888; font-size: 0.85rem; margin-top: 15px;">Eish this is long 😂❤️‍🩹</p>
+
+            <!-- Send Answers Button -->
+            <a id="whatsappShareBtn" href="#" target="_blank" class="whatsapp-btn">Send me your survey answers! 📲💕</a>
+        </div>
+    </div>
+
+    <script>
+        let q1SelectedValue = "";
+
+        function selectOption(btnElement, value) {
+            const parent = btnElement.parentElement;
+            const buttons = parent.querySelectorAll('.option-btn');
+            buttons.forEach(b => b.classList.remove('selected'));
+
+            btnElement.classList.add('selected');
+            q1SelectedValue = value;
+            document.getElementById('errorMsg').style.display = 'none';
+        }
+
+        function submitSurvey() {
+            const q2Val = document.getElementById('q2Input').value.trim();
+            const q3Val = document.getElementById('q3Input').value.trim();
+
+            if (!q1SelectedValue || q2Val === "" || q3Val === "") {
+                document.getElementById('errorMsg').style.display = 'block';
+                return;
+            }
+
+            // Create pre-filled WhatsApp link with her answers
+            const answersText = `Here are my survey answers babe! 💕%0A%0A1. How far for our love?: ${encodeURIComponent(q1SelectedValue)}%0A2. What to work on: ${encodeURIComponent(q2Val)}%0A3. One thing I hate: ${encodeURIComponent(q3Val)}`;
+            document.getElementById('whatsappShareBtn').href = `https://wa.me/?text=${answersText}`;
+
+            // Hide survey & update subtitle
+            document.getElementById('surveySection').style.display = 'none';
+            document.getElementById('subtitleText').innerText = "Surprise Unlocked! 🎉❤️";
+
+            // Trigger Confetti Celebration
+            confetti({
+                particleCount: 120,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            // Reveal secret message
+            const secretMsg = document.getElementById('secretMessage');
+            secretMsg.classList.add('show');
+        }
+    </script>
+
+</body>
+</html>
